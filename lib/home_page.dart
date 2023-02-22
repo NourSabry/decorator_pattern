@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_final_fields, avoid_print, use_key_in_widget_constructors, unnecessary_null_comparison
 
+import 'package:decorater_app/decorator/decorator_container.dart';
 import 'package:flutter/material.dart';
+import 'dart:core';
 
 class HomePage extends StatefulWidget {
   @override
@@ -46,7 +48,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
- 
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -85,7 +87,6 @@ class _HomePageState extends State<HomePage> {
               items: _options,
               value: _value,
               onChanged: (dynamic value) {
-          
                 setState(() {
                   _value = value!;
                 });
@@ -116,26 +117,26 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Container(
-              width: size.width,
-              height: size.height * 0.08,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.05),
-                borderRadius: BorderRadius.circular(15),
+        Center(
+                child: _isPressed
+                    ? ContainerDecorator(
+                        widget: Text(
+                          _value == 0
+                              ? _textController.text.toLowerCase()
+                              : _value == 1
+                                  ? _textController.text.toUpperCase()
+                                  : _textController.text,
+                          style: TextStyle(
+                            color: _value == 2 ? Colors.red : Colors.black,
+                            fontWeight:
+                                _value == 3 ? FontWeight.bold : FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
               ),
-              child: Center(
-                child: Text(
-                  
-                  _isPressed ? _textController.text : "",
-                  style: TextStyle(
-                    color: _value == 2 ? Colors.red : Colors.black,
-                    fontWeight: _value == 3 ? FontWeight.bold : FontWeight.w600,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
+           
           ],
         ),
       ),
